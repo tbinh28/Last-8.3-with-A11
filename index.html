@@ -185,8 +185,8 @@ body::after {
 #card {
   position:fixed; inset:0; z-index:20;
   overflow-y:auto;
-  display:flex; align-items:flex-start; justify-content:center;
-  padding: 40px 20px;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:36px;
+  padding: 40px 20px 80px;
   opacity:0; pointer-events:none;
   transition: opacity .8s ease;
   background: rgba(255,253,251,.6);
@@ -206,7 +206,14 @@ body::after {
   overflow:hidden;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 35C24 35 7 24 7 14a8 8 0 0 1 17-3 8 8 0 0 1 17 3c0 10-17 21-17 21z' fill='rgba(172%2C99%2C118%2C0.03)'/%3E%3C/svg%3E");
   background-size:48px 48px;
+  flex-shrink: 0; /* KHÔNG CHO NÓ CO LẠI NỮA */
 }
+
+.late-paper {
+  padding: 48px;
+  opacity:0; transform:translateY(20px); transition:all .8s ease 2.2s;
+}
+#card.show .late-paper { opacity:1; transform:none; }
 
 .card-paper::before {
   content:'';
@@ -264,23 +271,25 @@ body::after {
 .c-div-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(172,99,118,.2),transparent); }
 .c-div-icon { font-size:1rem; color:rgba(172,99,118,.4); }
 
+/* VÁ LỖI DELAY CHO MƯỢT */
 #card.show .c-date, #card.show .c-title, #card.show .c-to { opacity:1; transform:none; }
 #card.show .c-div  { opacity:1; }
 #card.show .c-body p       { opacity:1; transform:none; }
-#card.show .c-body p:nth-child(1)  { transition-delay:.6s; }
-#card.show .c-body p:nth-child(2)  { transition-delay:.75s; }
-#card.show .c-body p:nth-child(3)  { transition-delay:.9s; }
-#card.show .c-body p:nth-child(4)  { transition-delay:1.05s; }
-#card.show .c-body p:nth-child(5)  { transition-delay:1.2s; }
-#card.show .c-body p:nth-child(6)  { transition-delay:1.35s; }
-#card.show .c-body p:nth-child(7)  { transition-delay:1.5s; }
-#card.show .c-quote { opacity:1; transform:none; transition-delay:1.6s; }
-#card.show .c-body p:nth-child(9)  { transition-delay:1.75s; }
-#card.show .c-sign  { opacity:1; transform:none; transition-delay:1.9s; }
+#card.show .c-body p:nth-child(2)  { transition-delay:.6s; }
+#card.show .c-body p:nth-child(3)  { transition-delay:.75s; }
+#card.show .c-body p:nth-child(4)  { transition-delay:.9s; }
+#card.show .c-body p:nth-child(5)  { transition-delay:1.05s; }
+#card.show .c-body p:nth-child(6)  { transition-delay:1.2s; }
+#card.show .c-body p:nth-child(7)  { transition-delay:1.35s; }
+#card.show .c-body p:nth-child(8)  { transition-delay:1.5s; }
+#card.show .c-quote { opacity:1; transform:none; transition-delay:1.65s; }
+#card.show .c-body p:nth-child(10) { transition-delay:1.8s; }
+#card.show .c-body p:nth-child(11) { transition-delay:1.95s; }
+#card.show .c-sign  { opacity:1; transform:none; transition-delay:2.1s; }
 
 .c-flowers {
   padding: 0 0 36px; text-align:center; font-size:1.4rem; letter-spacing:.25em;
-  opacity:0; transition:opacity .6s 2.1s;
+  opacity:0; transition:opacity .6s 2.25s;
 }
 #card.show .c-flowers { opacity:1; }
 
@@ -295,6 +304,26 @@ body::after {
 }
 .close-btn:hover { background:#fef1f3; transform:scale(1.1) rotate(90deg); }
 .close-btn.on { display:flex; }
+
+/* Styles cho cục video ở dưới */
+.c-late-title {
+  font-family:'Nunito',sans-serif; font-size:1rem; font-weight:700;
+  letter-spacing:.15em; text-transform:uppercase; color:#be364e;
+  text-align:center; margin-bottom: 24px;
+}
+.c-late-text {
+  font-size:1.05rem; line-height:1.8; color:#542531; 
+  text-align: justify; white-space: pre-wrap; margin-bottom: 28px;
+}
+.c-video-box {
+  width: 100%; aspect-ratio: 16 / 9;
+  background: #fff5f7; border: 1px dashed rgba(172, 99, 118, 0.4); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #ac6376; font-size: 0.9rem; font-style: italic; overflow: hidden;
+}
+.c-video-box iframe, .c-video-box video {
+  width: 100%; height: 100%; border: none; object-fit: cover;
+}
 
 .conf {
   position:fixed; top:-8px; z-index:25;
@@ -368,6 +397,19 @@ body::after {
       </div>
     </div>
   </div>
+
+  <div class="card-paper late-paper">
+    <div class="c-late-title">LỜI XIN LỖI VÀ MÓN NỢ CUỐI CÙNG</div>
+    
+    <div class="c-late-text">
+a
+b    </div>
+
+    <div class="c-video-box">
+      <span style="opacity: 0.6;">[ Video Placeholder ]</span>
+    </div>
+  </div>
+
 </div>
 
 <button class="close-btn" id="closeBtn" onclick="closeCard()">✕</button>
